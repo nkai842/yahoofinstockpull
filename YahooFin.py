@@ -2,7 +2,6 @@ import pandas_datareader as pdr
 from datetime import datetime, date, timedelta
 from yahoo_fin import stock_info as si
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 class DataYahoo():
@@ -10,9 +9,11 @@ class DataYahoo():
         self.today = date.today()
         self.ticker = ticker
     def pull_data(self):
+        ## Retrieves 1 week of stock data from yahoo finance
         tick = pdr.get_data_yahoo(symbols = self.ticker, start=self.today - timedelta(days = 7), end=self.today - timedelta(days = 1))
         return tick
     def plot(self):
+        ## Plots the adjusted close price of stocks over 1 week
         tick = pdr.get_data_yahoo(symbols=str(self.ticker), start=self.today - timedelta(days = 7), end=self.today - timedelta(days = 1))
         tick['Adj Close'].plot(grid = False)
         plt.show()
